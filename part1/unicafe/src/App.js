@@ -17,9 +17,10 @@ const Header = ({name}) => {
 const Statistic = ({name, value}) => {
   return(
     <>
-      <p>
-        {name} {value}
-      </p>
+      <tr>
+        <td>{name}</td>
+        <td>{value}</td>
+      </tr>
     </>
   )
 }
@@ -45,11 +46,16 @@ const Statistics = (props) => {
   }
   return(
     <>
-      <Statistic name='good' value={props.good}/>
-      <Statistic name='neutral' value={props.neutral}/>
-      <Statistic name='bad' value={props.bad}/>
-      <Statistic name='average' value= {avg()} />
-      <Statistic name='positive' value={pos().toString().concat(' %')}/>
+      <table>
+        <tbody>
+          <Statistic name='good' value={props.good}/>
+          <Statistic name='neutral' value={props.neutral}/>
+          <Statistic name='bad' value={props.bad}/>
+          <Statistic name='all' value= {total} />
+          <Statistic name='average' value= {avg()} />
+          <Statistic name='positive' value={pos().toString().concat(' %')}/>
+        </tbody>
+      </table>
     </>
   )
 }

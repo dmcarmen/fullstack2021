@@ -1,6 +1,6 @@
 # Course Information
 
-Part 1 a and b.
+Part 1, 1.1-1.5.
 
 ## Available Scripts
 

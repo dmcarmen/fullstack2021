@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import PersonForm from './components/PersonForm'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
@@ -14,26 +13,34 @@ const App = () => {
   const [ filterText, setFilterText] = useState('')
   const [notifMessage, setNotifMessage] = useState(null)
 
+
   const addPerson = (event) => {
     const names = persons.map(e => e.name)
+    const personObject = {
+      name: newName,
+      number: newNumber
+    }
 
     event.preventDefault()
     if(names.includes(newName)){
-      window.alert(`${newName} is already added to phonebook`);
-    } else {
-      const personObject = {
-        name: newName,
-        number: newNumber
+      if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+        const oldPerson = persons.filter(person => person.name===newName)
+        const id = oldPerson[0].id
+        personService
+          .update(id, personObject).then(returnedPerson => {
+            setPersons(persons.map(person => person.id !==  id ? person : returnedPerson))
+          })
       }
+    } else {
       personService
-      .create(personObject)
-      .then(returnedPerson => {
-        setNotifMessage(`Added ${returnedPerson.name}`)
-        setTimeout(() => {
-          setNotifMessage(null)
-        }, 5000)
-        setPersons(persons.concat(returnedPerson))
-      })
+        .create(personObject)
+        .then(returnedPerson => {
+          setNotifMessage(`Added ${returnedPerson.name}`)
+          setTimeout(() => {
+            setNotifMessage(null)
+          }, 5000)
+          setPersons(persons.concat(returnedPerson))
+        })
     }
     setNewNumber('')
     setNewName('')
@@ -79,7 +86,11 @@ const App = () => {
         numberOnChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons = {persons} filterText={filterText} eraseEntry={eraseEntry}/>
+      <Persons 
+        persons = {persons} 
+        filterText={filterText} 
+        eraseEntry={eraseEntry}
+      />
     </div>
   )
 }

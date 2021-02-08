@@ -12,6 +12,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterText, setFilterText] = useState('')
   const [notifMessage, setNotifMessage] = useState(null)
+  const [notifType, setNotifType] = useState('notif')
 
 
   const addPerson = (event) => {
@@ -28,14 +29,22 @@ const App = () => {
         const id = oldPerson[0].id
         personService
           .update(id, personObject).then(returnedPerson => {
-            setPersons(persons.map(person => person.id !==  id ? person : returnedPerson))
-          })
+              setPersons(persons.map(person => person.id !==  id ? person : returnedPerson))
+            }).catch(error => {
+              setNotifMessage(`Information of ${newName} has already been removed.`)
+              setNotifType('error')
+              setTimeout(() => {
+                setNotifMessage(null)
+              }, 5000)
+              personService.getAll().then(initialPersons => {setPersons(initialPersons)})
+            })
       }
     } else {
       personService
         .create(personObject)
         .then(returnedPerson => {
           setNotifMessage(`Added ${returnedPerson.name}`)
+          setNotifType('notif')
           setTimeout(() => {
             setNotifMessage(null)
           }, 5000)
@@ -65,14 +74,14 @@ const App = () => {
   }, [])
 
   const eraseEntry = (person) => {
-    personService.erase(person)
+    personService.erase(person).catch(error => {})
     setPersons(persons.filter(n => n.id !== person.id))
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notifMessage} />
+      <Notification msg={notifMessage} msgType={notifType} />
       <FilterForm
         filterTextValue = {filterText} 
         filterTextOnChange= {handleFilterChange}

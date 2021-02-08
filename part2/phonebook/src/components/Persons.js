@@ -13,7 +13,7 @@ const Persons = ({persons, filterText}) => {
       person.name.toLowerCase().includes(filterText.toLowerCase()))
     return(
     <div>
-      {filt.map(person => <Person person = {person} key={person.name}/>)}
+      {filt.map(person => <Person person = {person} key={person.id}/>)}
     </div>
 )}
 

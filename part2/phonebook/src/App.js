@@ -4,12 +4,15 @@ import PersonForm from './components/PersonForm'
 import FilterForm from './components/FilterForm'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import Notification from './components/Notification'
+
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterText, setFilterText] = useState('')
+  const [notifMessage, setNotifMessage] = useState(null)
 
   const addPerson = (event) => {
     const names = persons.map(e => e.name)
@@ -25,6 +28,10 @@ const App = () => {
       personService
       .create(personObject)
       .then(returnedPerson => {
+        setNotifMessage(`Added ${returnedPerson.name}`)
+        setTimeout(() => {
+          setNotifMessage(null)
+        }, 5000)
         setPersons(persons.concat(returnedPerson))
       })
     }
@@ -58,6 +65,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notifMessage} />
       <FilterForm
         filterTextValue = {filterText} 
         filterTextOnChange= {handleFilterChange}

@@ -1,5 +1,11 @@
 import react from 'react'
 
+const Button = ({handleClick, text}) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
+
 const Person = ({person}) => {
     return(
       <p>
@@ -8,12 +14,21 @@ const Person = ({person}) => {
     )
   }
 
-const Persons = ({persons, filterText}) => {
+const Persons = ({persons, filterText, eraseEntry}) => {
     const filt = persons.filter(person => 
       person.name.toLowerCase().includes(filterText.toLowerCase()))
+      
     return(
     <div>
-      {filt.map(person => <Person person = {person} key={person.id}/>)}
+      {filt.map(person => 
+      {
+        return(
+          <div key={person.id}>
+            <Person person={person} />
+            <Button handleClick={() => eraseEntry(person)} text='delete'/>
+          </div>
+          )
+      })}
     </div>
 )}
 

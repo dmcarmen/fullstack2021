@@ -22,10 +22,10 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+      personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
       })
     }
     setNewNumber('')
@@ -43,12 +43,17 @@ const App = () => {
   }
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
+
+  const eraseEntry = (person) => {
+    personService.erase(person)
+    setPersons(persons.filter(n => n.id !== person.id))
+  }
 
   return (
     <div>
@@ -66,7 +71,7 @@ const App = () => {
         numberOnChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons = {persons} filterText={filterText}/>
+      <Persons persons = {persons} filterText={filterText} eraseEntry={eraseEntry}/>
     </div>
   )
 }

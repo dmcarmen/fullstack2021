@@ -1,45 +1,8 @@
 import React, { useState } from 'react'
-
-const PersonForm = ({onSubmit, nameValue, nameOnChange, numberValue, numberOnChange}) => {
-  return(
-    <form onSubmit={onSubmit}>
-      <div>
-        name: <input value={nameValue} onChange={nameOnChange}/>
-      </div>
-      <div>
-        number: <input value={numberValue} onChange={numberOnChange}/>
-      </div>
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-  )
-}
-
-const FilterForm = ({filterTextValue, filterTextOnChange}) => {
-  return(
-    <div>
-      filter shown with: <input value={filterTextValue} onChange={filterTextOnChange}/>
-    </div>
-  )
-}
-
-const Person = ({person}) => {
-  return(
-    <p>
-      {person.name} {person.number}
-    </p>
-  )
-}
-
-const Persons = ({persons, filterText}) => {
-  const filt = persons.filter(person => 
-    person.name.toLowerCase().includes(filterText.toLowerCase()))
-  return(
-  <div>
-    {filt.map(person => <Person person = {person} key={person.name}/>)}
-  </div>
-)}
+//import axios from 'axios'
+import PersonForm from './components/PersonForm'
+import FilterForm from './components/FilterForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([

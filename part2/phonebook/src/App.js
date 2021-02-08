@@ -74,7 +74,7 @@ const App = () => {
   }, [])
 
   const eraseEntry = (person) => {
-    personService.erase(person).catch(error => {})
+    personService.erase(person)
     setPersons(persons.filter(n => n.id !== person.id))
   }
 

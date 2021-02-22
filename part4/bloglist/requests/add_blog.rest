@@ -1,10 +1,11 @@
 POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcGUiLCJpZCI6IjYwMzQyNzhmMzYxMGU3NzBhM2NhNjM2ZiIsImlhdCI6MTYxNDAzMDgzMn0.gjJXBbEMeRKKAvwqB1ECQHy8AIbJPHM3Ksm3ahJVMIU
 
 {
-    "title": "asasd",
-    "author": "meje",
-    "url": "fssf",
+    "title": "blog de pepe",
+    "author": "pepe",
+    "url": "pepe.com",
     "likes": 8,
-    "userId": "6034075aef2beb4f2f08b025"
+    "userId": "6034278f3610e770a3ca636f"
 }

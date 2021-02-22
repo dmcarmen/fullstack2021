@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/blogs/
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhvbGEiLCJpZCI6IjYwMzQwZDViMmRkYjZmNTU2MTcyOGI2YSIsImlhdCI6MTYxNDAyOTkyMX0.YLHdGtYfWV7A8u7zQirqUHII03CAXceoo5V8SBWnl8I
+
+{
+    "title": "asasd",
+    "author": "meje",
+    "url": "fssf",
+    "likes": 8,
+    "userId": "6034075aef2beb4f2f08b025"
+}

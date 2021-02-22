@@ -8,7 +8,6 @@ const totalLikes = (blogs) => {
 
 const favoriteBlog = (blogs) => {
   const topBlog = blogs.reduce((acc, curr) => curr.likes > acc.likes ? curr : acc)
-  // Omit '_id', 'url' and '__v'
   const { _id, url, __v, ...rest } = topBlog
   return rest
 }

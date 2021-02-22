@@ -10,13 +10,18 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
 
+  if (body.title === undefined && body.url === undefined) {
+    response.status(400).end()
+    return
+  }
+
   const user = await User.findById(body.userId)
 
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes,
+    likes: body.likes || 0,
     user: user._id
   })
 

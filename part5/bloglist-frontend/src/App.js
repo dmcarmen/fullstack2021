@@ -13,8 +13,8 @@ const App = () => {
   const [notifMessage, setNotifMessage] = useState(null)
   const [notifType, setNotifType] = useState('notif')
 
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   const blogFormRef = useRef()
@@ -22,7 +22,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const App = () => {
       blogService.setToken(user.token)
       window.localStorage.setItem(
         'loggedBloglistappUser', JSON.stringify(user)
-      ) 
+      )
       setUser(user)
       setUsername('')
       setPassword('')
@@ -54,7 +54,7 @@ const App = () => {
       setTimeout(() => {
         setNotifMessage(null)
       }, 5000)
-  }  }
+    }  }
 
   const handleLogout = () => {
     setUser(null)
@@ -78,7 +78,7 @@ const App = () => {
       setTimeout(() => {
         setNotifMessage(null)
       }, 5000)
-    }  
+    }
   }
 
   const deleteBlog = (event) => {
@@ -114,11 +114,11 @@ const App = () => {
     return (
       <Togglable buttonLabel="log in" cancelButton='cancel'>
         <LoginForm
-              username={username}
-              password={password}
-              handleUsernameChange={({ target }) => setUsername(target.value)}
-              handlePasswordChange={({ target }) => setPassword(target.value)}
-              handleSubmit={handleLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleLogin}
         />
       </Togglable>
     )
@@ -151,15 +151,12 @@ const App = () => {
           {blogs.sort((a, b) => b.likes - a.likes)
             .map(blog =>
               <ul key={blog.id}>
-                {blog.title}
-                <Togglable buttonLabel="view" cancelButton="hide" ref={blogFormRef}>
-                  <Blog blog={blog} handleLikes={handleLikes} handleDelete={deleteBlog}/>
-                </Togglable>
+                <Blog blog={blog} handleLikes={handleLikes} handleDelete={deleteBlog}/>
               </ul>
             )}
         </div>
-      } 
-      
+      }
+
     </div>
   )
 }

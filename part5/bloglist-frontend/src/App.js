@@ -109,7 +109,6 @@ const App = () => {
       })
   }
 
-
   const loginForm = () => {
     return (
       <Togglable buttonLabel="log in" cancelButton='cancel'>
@@ -134,10 +133,10 @@ const App = () => {
 
   return (
     <div>
+      <h1>Blogs application</h1>
       <Notification msg={notifMessage} msgType={notifType} />
       {user === null ?
         <div>
-          <h2>log in to application</h2>
           {loginForm()}
         </div>
         :
@@ -149,8 +148,8 @@ const App = () => {
           {blogForm()}
           blogs
           {blogs.sort((a, b) => b.likes - a.likes)
-            .map(blog =>
-              <ul key={blog.id}>
+            .map((blog, i) =>
+              <ul key={blog.id} id={i}>
                 <Blog blog={blog} handleLikes={handleLikes} handleDelete={deleteBlog}/>
               </ul>
             )}

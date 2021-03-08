@@ -5,7 +5,7 @@ import { notifChange, notifEmpty } from '../reducers/notifReducer'
 
 const Anecdote = ({ anecdote, handleClick }) => {
   return(
-    <div>
+    <div key={anecdote.id}>
         <p>{anecdote.content}</p>
         <p>
             has {anecdote.votes}

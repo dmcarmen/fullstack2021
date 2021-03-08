@@ -1,3 +1,5 @@
+let timeoutID = null
+
 const notifReducer = (state = null, action) => {
   console.log(action)
   switch (action.type) {
@@ -16,7 +18,10 @@ export const notifChange = (notif, time) => {
       type: 'SET_NOTIF',
       notif,
     })
-    setTimeout(() => {
+    if (timeoutID !== null) {
+      clearTimeout(timeoutID)
+    }
+    timeoutID = setTimeout(() => {
       dispatch(notifEmpty())
     }, time*1000)
   }

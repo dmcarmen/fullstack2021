@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeVote } from '../reducers/anecdoteReducer'
+import { notifChange, notifEmpty } from '../reducers/notifReducer'
 
 const Anecdote = ({ anecdote, handleClick }) => {
   return(
@@ -16,7 +17,16 @@ const Anecdote = ({ anecdote, handleClick }) => {
 
 const Anecdotes = () => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(state => state.anecdotes)
+
+  const vote = (anecdote) => {
+    dispatch(changeVote(anecdote.id))
+
+    dispatch(notifChange(`You voted for '${anecdote.content}'`))
+    setTimeout(() => {
+      dispatch(notifEmpty())
+    }, 5000)
+  }
 
   return(
     <ul>
@@ -26,7 +36,7 @@ const Anecdotes = () => {
                 key={anecdote.id}
                 anecdote={anecdote}
                 handleClick={() => 
-                    dispatch(changeVote(anecdote.id))
+                  vote(anecdote)
                 }
             />
       )}

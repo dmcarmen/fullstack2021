@@ -47,7 +47,6 @@ export const createAnecdote = (anecdote) => {
   }
 }
 
-
 export const changeVote = (id) => {
   return {
     type: 'VOTE',

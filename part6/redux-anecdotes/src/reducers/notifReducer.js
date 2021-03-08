@@ -10,10 +10,15 @@ const notifReducer = (state = null, action) => {
   }
 }
 
-export const notifChange = notif => {
-  return {
-    type: 'SET_NOTIF',
-    notif,
+export const notifChange = (notif, time) => {
+  return dispatch => {
+    dispatch({
+      type: 'SET_NOTIF',
+      notif,
+    })
+    setTimeout(() => {
+      dispatch(notifEmpty())
+    }, time*1000)
   }
 }
 

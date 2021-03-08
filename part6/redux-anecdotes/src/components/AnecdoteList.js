@@ -20,7 +20,7 @@ const Anecdotes = () => {
   const anecdotes = useSelector(state => state.anecdotes)
 
   const vote = (anecdote) => {
-    dispatch(changeVote(anecdote.id))
+    dispatch(changeVote(anecdote))
 
     dispatch(notifChange(`You voted for '${anecdote.content}'`))
     setTimeout(() => {
